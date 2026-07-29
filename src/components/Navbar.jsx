@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { FaMoon } from "react-icons/fa";
+import { MdSunny } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
@@ -10,6 +12,14 @@ const Navbar = () => {
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
+
+    let root = document.documentElement;
+
+    if (theme === "dark") {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
   }, [theme]);
 
   const toggleTheme = () => {
@@ -36,45 +46,60 @@ const Navbar = () => {
         </h3>
       </div>
 
-      <div className="flex gap-4 px-4">
+      <div className="flex justify-center items-center gap-4 px-4">
         <button
-          className="cursor-pointer font-semibold hover:bg-slate-200 px-2  rounded-4xl"
+          className="cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl"
           onClick={() => navigate("/")}
         >
           Home
         </button>
         <button
-          className="cursor-pointer font-semibold hover:bg-slate-200 px-2  rounded-4xl"
+          className="cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl"
           onClick={() => navigate("/products")}
         >
           Products
         </button>
         <button
-          className="cursor-pointer font-semibold hover:bg-slate-200 px-2  rounded-4xl"
+          className="cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl"
           onClick={() => navigate("/reports")}
         >
           Dashboard and report
         </button>
         <button
-          className="cursor-pointer font-semibold hover:bg-slate-200 px-2  rounded-4xl"
+          className="cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl"
           onClick={() => navigate("/media")}
         >
           Media
         </button>
         <button
-          className="cursor-pointer font-semibold hover:bg-slate-200 px-2  rounded-4xl"
+          className="cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl"
           onClick={() => navigate("/cja")}
         >
           CJA
         </button>
         <button
-          className="cursor-pointer font-semibold hover:bg-slate-200 px-2  rounded-4xl"
+          className="cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl"
           onClick={() => navigate("/sst")}
         >
           SST
         </button>
-        <button onClick={toggleTheme}>
-          Switch to {theme === "light" ? "Dark" : "Light"} Mode
+
+        <button
+          onClick={toggleTheme}
+          className={`cursor-pointer relative min-w-14 h-7 rounded-full transition-colors duration-300 ${
+            theme === "dark" ? "bg-slate-700" : "bg-gray-300"
+          }`}
+          aria-label="Toggle dark mode"
+        >
+          <div
+            className={` absolute top-1 w-5 h-5 bg-white rounded-full shadow-md pt-[2px] pl-[1px] transition-transform duration-300 ${
+              theme === "dark" ? "translate-x-8" : "translate-x-1"
+            }`}
+          >
+            <span className="pt-1">
+              {theme === "dark" ? <FaMoon color="black" /> : <MdSunny />}
+            </span>
+          </div>
         </button>
       </div>
     </nav>

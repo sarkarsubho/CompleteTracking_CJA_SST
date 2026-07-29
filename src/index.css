@@ -1,3 +1,5 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 :root {
   /* --text: #6b6375;
   --text-h: #08060d;
@@ -91,5 +93,7 @@ body {
 .navbar {
   background-color: var(--nav-bg);
   color: var(--nav-text);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
