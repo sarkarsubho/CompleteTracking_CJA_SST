@@ -7,6 +7,7 @@ import ReportDashboard from "../pages/Report-Dashboard";
 import MultimediaTracking from "../pages/MultimediaTracking";
 import CJA from "../pages/CJA";
 import SST from "../pages/SST";
+import ProductsDetails from "../components/ProductsDetails";
 
 const Allroutes = () => {
   return (
@@ -14,6 +15,7 @@ const Allroutes = () => {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/products" element={<ProductCart />}></Route>
+        <Route path="/products/:id" element={<ProductsDetails />}></Route>
         <Route path="/reports" element={<ReportDashboard />}></Route>
         <Route path="/media" element={<MultimediaTracking />}></Route>
         <Route path="/cja" element={<CJA />}></Route>

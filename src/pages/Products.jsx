@@ -19,8 +19,10 @@
 import React, { useState } from "react";
 import { Trash2, Plus, Minus, ShoppingCart } from "lucide-react";
 import { FaCartPlus } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 const ProductCart = () => {
+  const navigate = useNavigate();
   // Sample products data
   const [products] = useState(
     JSON.parse(localStorage.getItem("products")) || [],
@@ -78,10 +80,11 @@ const ProductCart = () => {
         {products.map((product) => (
           <div
             key={product.id}
+            onClick={() => navigate(`/products/${product.id}`)}
             className="product-cart dark:bg-slate-700 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
           >
             {/* Product Image */}
-            <div className="relative h-48 bg-gray-200 overflow-hidden">
+            <div className="relative h-80  bg-gray-200 overflow-hidden">
               <img
                 src={product.image}
                 alt={product.name}
