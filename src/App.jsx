@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "./assets/vite.svg";
-import heroImg from "./assets/hero.png";
 import "./App.css";
+import heroImg from "./assets/hero.png";
+import viteLogo from "./assets/vite.svg";
 import Navbar from "./components/Navbar";
+import reactLogo from "./assets/react.svg";
 import Allroutes from "./routes/Allroutes";
-import { BrowserRouter } from "react-router-dom";
+import { useEffect, useState } from "react";
+import GPTButton from "./components/GPTButton";
+import { BrowserRouter, useNavigate } from "react-router-dom";
 
 function App() {
   useEffect(() => {
@@ -51,10 +52,12 @@ function App() {
       ]),
     );
   }, []);
+
   return (
     <BrowserRouter>
       <Navbar />
       <Allroutes />
+      <GPTButton />
     </BrowserRouter>
   );
 }

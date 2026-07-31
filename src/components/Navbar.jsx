@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
 import { FaMoon } from "react-icons/fa";
 import { MdSunny } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
 const Navbar = () => {
   const navigate = useNavigate();

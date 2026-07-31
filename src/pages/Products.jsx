@@ -1,25 +1,7 @@
-// import React from 'react'
-
-// const Products = () => {
-
-//     let products = Array(40).fill({id:1, name :"product name", price:400, discription:"this our product description n" }).map((e,index)=>{return{...e,id:index+1}})
-//   return (
-//     <div>
-//         {
-//             products.map((e)=>{
-//                 return <div>  </div>
-//             })
-//         }
-//     </div>
-//   )
-// }
-
-// export default Products/
-
 import React, { useState } from "react";
-import { Trash2, Plus, Minus, ShoppingCart } from "lucide-react";
 import { FaCartPlus } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import { Trash2, Plus, Minus, ShoppingCart } from "lucide-react";
 
 const ProductCart = () => {
   const navigate = useNavigate();
