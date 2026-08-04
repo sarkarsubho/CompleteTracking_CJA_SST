@@ -9,6 +9,10 @@ const AskGPT = () => {
 
 const askToGPT = async () => {
 
+  const headers ={
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${self.api_token}`
+        }
   axios.post(
     "https://api-pp.se.axa-go.applications.services.axa-tech.intraxa/ago-m365-securegpt-hub-v1-vrs/providers/openai/deployments/gpt-4o-mini-2024-07-18/chat/completions?api-version=2025-01-01-preview",
   );
