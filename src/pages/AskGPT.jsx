@@ -3,21 +3,22 @@ import { SendHorizontal } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
 const AskGPT = () => {
+  const env = import.meta.env;
   const [input, setInput] = useState("");
   const [chat, setChat] = useState([]);
+  console.log("API URL:", import.meta.env.VITE_API_URL);
+  console.log("API Key:", import.meta.env.VITE_API_KEY);
 
+  const askToGPT = async () => {
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${self.api_token}`,
+    };
 
-const askToGPT = async () => {
-
-  const headers ={
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${self.api_token}`
-        }
-  axios.post(
-    "https://api-pp.se.axa-go.applications.services.axa-tech.intraxa/ago-m365-securegpt-hub-v1-vrs/providers/openai/deployments/gpt-4o-mini-2024-07-18/chat/completions?api-version=2025-01-01-preview",
-  );
-
-};
+    axios.post(
+      "https://api-pp.se.axa-go.applications.services.axa-tech.intraxa/ago-m365-securegpt-hub-v1-vrs/providers/openai/deployments/gpt-4o-mini-2024-07-18/chat/completions?api-version=2025-01-01-preview",
+    );
+  };
 
   const handleSubmit = () => {
     let messageObj = {
@@ -29,8 +30,6 @@ const askToGPT = async () => {
     setChat((prev) => [...prev, messageObj]);
     askToGPT(messageObj.value);
   };
-
-  
 
   // useEffect(()=>{
 
