@@ -1,13 +1,15 @@
 import { FaMoon } from "react-icons/fa";
 import { MdSunny } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import { Hamburger, HamburgerIcon, Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem("theme") || "light";
   });
+  const location = useLocation();
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -48,37 +50,59 @@ const Navbar = () => {
 
       <div className="flex justify-center items-center gap-4 px-4">
         <button
-          className="cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl"
+          className={`cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl ${
+            location.pathname === "/" ? "font-bold text-lg text-indigo-400" : ""
+          }`}
           onClick={() => navigate("/")}
         >
           Home
         </button>
         <button
-          className="cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl"
+          className={`cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl ${
+            location.pathname === "/products"
+              ? "font-bold text-lg text-indigo-400"
+              : ""
+          }`}
           onClick={() => navigate("/products")}
         >
           Products
         </button>
         <button
-          className="cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl"
+          className={`cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl ${
+            location.pathname === "/reports"
+              ? "font-bold text-lg text-indigo-400"
+              : ""
+          }`}
           onClick={() => navigate("/reports")}
         >
           Dashboard and report
         </button>
         <button
-          className="cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl"
+          className={`cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl ${
+            location.pathname === "/media"
+              ? "font-bold text-lg text-indigo-400"
+              : ""
+          }`}
           onClick={() => navigate("/media")}
         >
           Media
         </button>
         <button
-          className="cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl"
+          className={`cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl ${
+            location.pathname === "/cja"
+              ? "font-bold text-lg text-indigo-400"
+              : ""
+          }`}
           onClick={() => navigate("/cja")}
         >
           CJA
         </button>
         <button
-          className="cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl"
+          className={`cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl ${
+            location.pathname === "/sst"
+              ? "font-bold text-lg text-indigo-400"
+              : ""
+          }`}
           onClick={() => navigate("/sst")}
         >
           SST
@@ -91,15 +115,27 @@ const Navbar = () => {
           }`}
           aria-label="Toggle dark mode"
         >
+          <span className="absolute top-[6px] left-2 transition-transform duration-300">
+            {theme === "dark" ? <MdSunny /> : ""}
+          </span>
           <div
-            className={` absolute top-1 w-5 h-5 bg-white rounded-full shadow-md pt-[2px] pl-[1px] transition-transform duration-300 ${
+            className={`absolute top-1 w-5 h-5 bg-white rounded-full shadow-md pt-[2px] pl-[1px] transition-transform duration-300 ${
               theme === "dark" ? "translate-x-8" : "translate-x-1"
             }`}
           >
-            <span className="pt-1">
+            <span className="flex justify-center items-center">
               {theme === "dark" ? <FaMoon color="black" /> : <MdSunny />}
             </span>
           </div>
+
+          <span className="absolute top-[6px] right-2 transition-transform duration-300">
+            {theme !== "dark" ? <FaMoon color="black" /> : ""}
+          </span>
+        </button>
+
+        <button className="md:hidden cursor-pointer">
+          <Menu />
+          <X />
         </button>
       </div>
     </nav>
