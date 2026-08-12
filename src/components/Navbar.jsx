@@ -10,6 +10,7 @@ const Navbar = () => {
     return localStorage.getItem("theme") || "light";
   });
   const location = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -48,7 +49,7 @@ const Navbar = () => {
         </h3>
       </div>
 
-      <div className="flex justify-center items-center gap-4 px-4">
+      <div className=" hidden md:flex  justify-center items-center gap-4 px-4">
         <button
           className={`cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl ${
             location.pathname === "/" ? "font-bold text-lg text-indigo-400" : ""
@@ -132,12 +133,14 @@ const Navbar = () => {
             {theme !== "dark" ? <FaMoon color="black" /> : ""}
           </span>
         </button>
-
-        <button className="md:hidden cursor-pointer">
-          <Menu />
-          <X />
-        </button>
       </div>
+
+      <button
+        className="md:hidden cursor-pointer"
+        onclick={() => setIsOpen(!isOpen)}
+      >
+        {isOpen ? <X /> : <Menu />}
+      </button>
     </nav>
   );
 };
