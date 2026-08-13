@@ -5,10 +5,9 @@ const MultimediaTracking = () => {
   return (
     <div>
       <div className="flex flex-col items-center w-full">
-        <h2 className="p-2 "> Youtube video tracking</h2>
+        <h2 className="p-2 text-xl font-semibold"> Youtube video tracking</h2>
         <iframe
-          width="560"
-          height="315"
+          className=" w-[90%] md:w-[60%] aspect-video"
           src="https://www.youtube.com/embed/dcXqhMqhZUo?si=GkpfWD8mQ-h7K7Fy"
           title="YouTube video player"
           frameborder="0"
@@ -18,8 +17,8 @@ const MultimediaTracking = () => {
         ></iframe>
       </div>
       <div className="flex flex-col items-center w-full">
-        <h2 className="py-4">Custom Video tracking</h2>
-        <div className="w-[70%]">
+        <h2 className="py-4 text-xl font-semibold">Custom Video tracking</h2>
+        <div className="w-[90%] md:w-[60%] aspect-video">
           <VideoPlayer
             src={"https://www.w3schools.com/html/mov_bbb.mp4"}
           ></VideoPlayer>

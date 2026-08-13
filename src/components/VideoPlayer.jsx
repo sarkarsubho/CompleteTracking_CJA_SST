@@ -102,18 +102,17 @@ const VideoPlayer = ({ src }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">Video Player</h1>
+        <div className="mb-8 -mt-4 text-center">
           <p className="text-gray-400">
             Custom HTML5 video player with controls
           </p>
         </div>
 
         {/* Video Container */}
-        <div className="bg-black rounded-lg overflow-hidden shadow-2xl group">
+        <div className="bg-black rounded-lg md:overflow-hidden shadow-2xl group">
           {/* Video Element */}
           <video
             ref={videoRef}
@@ -127,7 +126,10 @@ const VideoPlayer = ({ src }) => {
           </video>
 
           {/* Controls Container */}
-          <div className="bg-gradient-to-t from-black via-transparent to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div
+            className="p-2"
+            // className="bg-gradient-to-t from-black via-transparent to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          >
             {/* Progress Bar */}
             <div className="mb-4">
               <input
@@ -213,28 +215,26 @@ const VideoPlayer = ({ src }) => {
         </div>
 
         {/* Info Section */}
-        <div className="mt-8 bg-gray-800 rounded-lg p-6 text-white">
+        <div className="mt-2 rounded-lg p-2 ">
           <h2 className="text-xl font-semibold mb-4">Video Information</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
             <div>
-              <span className="text-gray-400">Duration:</span>
-              <p className="text-white font-semibold">{formatTime(duration)}</p>
+              <span className="">Duration:</span>
+              <p className=" font-semibold">{formatTime(duration)}</p>
             </div>
             <div>
-              <span className="text-gray-400">Current Time:</span>
-              <p className="text-white font-semibold">
-                {formatTime(currentTime)}
-              </p>
+              <span className="">Current Time:</span>
+              <p className=" font-semibold">{formatTime(currentTime)}</p>
             </div>
             <div>
-              <span className="text-gray-400">Status:</span>
-              <p className="text-white font-semibold">
+              <span className="">Status:</span>
+              <p className=" font-semibold">
                 {isPlaying ? "▶️ Playing" : "⏸️ Paused"}
               </p>
             </div>
             <div>
-              <span className="text-gray-400">Volume:</span>
-              <p className="text-white font-semibold">
+              <span className="">Volume:</span>
+              <p className=" font-semibold">
                 {isMuted ? "Muted" : `${Math.round(volume * 100)}%`}
               </p>
             </div>

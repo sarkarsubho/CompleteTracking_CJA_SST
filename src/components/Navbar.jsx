@@ -2,7 +2,15 @@ import { FaMoon } from "react-icons/fa";
 import { MdSunny } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { Hamburger, HamburgerIcon, Menu, X } from "lucide-react";
+import {
+  ConeIcon,
+  Hamburger,
+  HamburgerIcon,
+  LogOut,
+  Menu,
+  User,
+  X,
+} from "lucide-react";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -11,6 +19,13 @@ const Navbar = () => {
   });
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleLogout = () => {
+    // Clear user session or token from localStorage
+    localStorage.removeItem("userToken");
+    // Redirect to login page
+    navigate("/login");
+  };
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -32,7 +47,7 @@ const Navbar = () => {
   return (
     <nav
       // className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 transition-colors duration-300"
-      className="navbar p-4 flex justify-between"
+      className="navbar p-4 py-3 flex justify-between sticky top-0 z-100"
       // className="flex justify-between p-2 w-full border-b-1 border-slate-800 dark:bg-slate-900 light:bg-slate-100 dark:text-white light:text-black"
     >
       <div className="flex cursor-pointer" onClick={() => navigate("/")}>
@@ -108,7 +123,9 @@ const Navbar = () => {
         >
           SST
         </button>
+      </div>
 
+      <div className="flex justify-center items-center gap-2">
         <button
           onClick={toggleTheme}
           className={`cursor-pointer relative min-w-14 h-7 rounded-full transition-colors duration-300 ${
@@ -133,12 +150,48 @@ const Navbar = () => {
             {theme !== "dark" ? <FaMoon color="black" /> : ""}
           </span>
         </button>
+        <div className="flex items-center justify-center space-x-3">
+          <div className="w-8 h-8 rounded-full bg-cyan-500/20 border border-slate-700 dark:border-cyan-500/40 flex items-center justify-center text-slate-700 dark:text-cyan-300 font-medium text-sm cursor-pointer">
+            {/* {userName.charAt(0)} */}
+            SS
+          </div>
+          {/* <button
+            onClick={handleLogout}
+            className="bg-red-500 hover:bg-red-600 cursor-pointer text-white p-3 px-4 rounded-md transition-colors duration-200"
+          >
+            <LogOut className="inline-block " />
+          </button> */}
+        </div>
       </div>
-
       {/* Mobile Menu */}
-      <div className="flex md:hidden justify-end  items-center gap-4 px-4">
+      <div className="flex md:hidden justify-end  items-center gap-4 ">
         <button
-          className="md:hidden cursor-pointer bg-red-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded-md"
+          onClick={toggleTheme}
+          className={`cursor-pointer relative min-w-14 h-7 rounded-full transition-colors duration-300 ${
+            theme === "dark" ? "bg-slate-700" : "bg-gray-300"
+          }`}
+          aria-label="Toggle dark mode"
+        >
+          <span className="absolute top-[6px] left-2 transition-transform duration-300">
+            {theme === "dark" ? <MdSunny /> : ""}
+          </span>
+          <div
+            className={`absolute top-1 w-5 h-5 bg-white rounded-full shadow-md pt-[2px] pl-[1px] transition-transform duration-300 ${
+              theme === "dark" ? "translate-x-8" : "translate-x-1"
+            }`}
+          >
+            <span className="flex justify-center items-center">
+              {theme === "dark" ? <FaMoon color="black" /> : <MdSunny />}
+            </span>
+          </div>
+
+          <span className="absolute top-[6px] right-2 transition-transform duration-300">
+            {theme !== "dark" ? <FaMoon color="black" /> : ""}
+          </span>
+        </button>
+
+        <button
+          className="md:hidden cursor-pointer  dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded-md"
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? (
@@ -147,95 +200,98 @@ const Navbar = () => {
             <Menu className="text-slate-800 dark:text-slate-200" />
           )}
         </button>
-        {isOpen && (
-          <div className=" flex self-end  md:hidden flex-col justify-center items-center fixed z-100 max-w-[70%] align-self-left top-16 left-0 right-0 gap-4 px-4 bg-white dark:bg-slate-800 shadow-lg rounded-b-lg transition-transform duration-300 ease-in-out z-50">
-            <button
-              className={`cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl ${
-                location.pathname === "/"
-                  ? "font-bold text-lg text-indigo-400"
-                  : ""
-              }`}
-              onClick={() => navigate("/")}
-            >
-              Home
-            </button>
-            <button
-              className={`cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl ${
-                location.pathname === "/products"
-                  ? "font-bold text-lg text-indigo-400"
-                  : ""
-              }`}
-              onClick={() => navigate("/products")}
-            >
-              Products
-            </button>
-            <button
-              className={`cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl ${
-                location.pathname === "/reports"
-                  ? "font-bold text-lg text-indigo-400"
-                  : ""
-              }`}
-              onClick={() => navigate("/reports")}
-            >
-              Dashboard and report
-            </button>
-            <button
-              className={`cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl ${
-                location.pathname === "/media"
-                  ? "font-bold text-lg text-indigo-400"
-                  : ""
-              }`}
-              onClick={() => navigate("/media")}
-            >
-              Media
-            </button>
-            <button
-              className={`cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl ${
-                location.pathname === "/cja"
-                  ? "font-bold text-lg text-indigo-400"
-                  : ""
-              }`}
-              onClick={() => navigate("/cja")}
-            >
-              CJA
-            </button>
-            <button
-              className={`cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl ${
-                location.pathname === "/sst"
-                  ? "font-bold text-lg text-indigo-400"
-                  : ""
-              }`}
-              onClick={() => navigate("/sst")}
-            >
-              SST
-            </button>
+      </div>
 
-            <button
-              onClick={toggleTheme}
-              className={`cursor-pointer relative min-w-14 h-7 rounded-full transition-colors duration-300 ${
-                theme === "dark" ? "bg-slate-700" : "bg-gray-300"
-              }`}
-              aria-label="Toggle dark mode"
-            >
-              <span className="absolute top-[6px] left-2 transition-transform duration-300">
-                {theme === "dark" ? <MdSunny /> : ""}
-              </span>
-              <div
-                className={`absolute top-1 w-5 h-5 bg-white rounded-full shadow-md pt-[2px] pl-[1px] transition-transform duration-300 ${
-                  theme === "dark" ? "translate-x-8" : "translate-x-1"
-                }`}
-              >
-                <span className="flex justify-center items-center">
-                  {theme === "dark" ? <FaMoon color="black" /> : <MdSunny />}
-                </span>
+      {/* mobile menu option */}
+      <div
+        className={`fixed flex md:hidden flex-col gap-5 text-lg pr-8 pt-4 items-end z-100 right-0 top-18 z-50 bg-white dark:bg-slate-800 h-[calc(100vh-4.5rem)] w-72  shadow-xl transition-transform duration-300 ease-in-out  ${
+          isOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <button
+          className={`cursor-pointer hover:font-bold hover:text-xl duration-200 ease-in-out px-2  rounded-4xl ${
+            location.pathname === "/" ? "font-bold text-lg text-indigo-400" : ""
+          }
+              delay-50 ${isOpen ? "translate-x-0" : "translate-x-full"}`}
+          onClick={() => navigate("/")}
+        >
+          Home
+        </button>
+        <button
+          className={`cursor-pointer hover:font-bold hover:text-xl duration-200 ease-in-out px-2  rounded-4xl ${
+            location.pathname === "/products"
+              ? "font-bold text-lg text-indigo-400"
+              : ""
+          }
+              delay-100 ${isOpen ? "translate-x-0" : "translate-x-full"}`}
+          onClick={() => navigate("/products")}
+        >
+          Products
+        </button>
+        <button
+          className={`cursor-pointer hover:font-bold hover:text-xl duration-200 ease-in-out px-2  rounded-4xl ${
+            location.pathname === "/reports"
+              ? "font-bold text-lg text-indigo-400"
+              : ""
+          }
+              delay-150 ${isOpen ? "translate-x-0" : "translate-x-full"}`}
+          onClick={() => navigate("/reports")}
+        >
+          Dashboard and report
+        </button>
+        <button
+          className={`cursor-pointer hover:font-bold hover:text-xl duration-200 ease-in-out px-2  rounded-4xl ${
+            location.pathname === "/media"
+              ? "font-bold text-lg text-indigo-400"
+              : ""
+          }
+              delay-200  ${isOpen ? "translate-x-0" : "translate-x-full"}`}
+          onClick={() => navigate("/media")}
+        >
+          Media
+        </button>
+        <button
+          className={`cursor-pointer hover:font-bold hover:text-xl duration-200 ease-in-out px-2  rounded-4xl ${
+            location.pathname === "/cja"
+              ? "font-bold text-lg text-indigo-400"
+              : ""
+          }
+              delay-250 ${isOpen ? "translate-x-0" : "translate-x-full"}`}
+          onClick={() => navigate("/cja")}
+        >
+          CJA
+        </button>
+        <button
+          className={`cursor-pointer hover:font-bold hover:text-xl duration-200 ease-in-out px-2  rounded-4xl ${
+            location.pathname === "/sst"
+              ? "font-bold text-lg text-indigo-400"
+              : ""
+          }
+              delay-300 ${isOpen ? "translate-x-0" : "translate-x-full"}`}
+          onClick={() => navigate("/sst")}
+        >
+          SST
+        </button>
+
+        <div
+          className={`grow flex items-end w-full delay-100 pb-4 -mr-4 ${isOpen ? "translate-x-0" : "translate-x-full"}`}
+        >
+          <div className="flex justify-between items-center space-x-2 gap-4">
+            <div className="flex gap-2 justify-between items-center">
+              <User className="border  w-10 h-10 rounded-full" />
+              <div>
+                <p className="text-sm font-semibold">John Doe</p>
+                <p className="text-xs text-gray-500">john.doe@example.com</p>
               </div>
-
-              <span className="absolute top-[6px] right-2 transition-transform duration-300">
-                {theme !== "dark" ? <FaMoon color="black" /> : ""}
-              </span>
+            </div>
+            <button
+              onClick={handleLogout}
+              className="bg-red-500 hover:bg-red-600 cursor-pointer text-white p-3 px-4 rounded-md transition-colors duration-200"
+            >
+              <LogOut className="inline-block " />
             </button>
           </div>
-        )}
+        </div>
       </div>
     </nav>
   );

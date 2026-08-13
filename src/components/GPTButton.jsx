@@ -12,7 +12,7 @@ const GPTButton = () => {
   } else {
     return (
       <div
-        className="fixed bottom-8 right-8 bg-slate-200 hover:bg-slate-300 p-3 rounded-t-2xl rounded-ee-2xl rounded-es-xs cursor-pointer "
+        className="fixed bottom-18 right-8 bg-slate-200 hover:bg-slate-300 p-3 rounded-t-2xl rounded-ee-2xl rounded-es-xs cursor-pointer "
         onClick={() => navigate("/askGPT")}
       >
         <BotMessageSquare size={36} color="#4c00ff" />
