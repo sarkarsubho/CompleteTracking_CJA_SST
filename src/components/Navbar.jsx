@@ -135,12 +135,108 @@ const Navbar = () => {
         </button>
       </div>
 
-      <button
-        className="md:hidden cursor-pointer"
-        onclick={() => setIsOpen(!isOpen)}
-      >
-        {isOpen ? <X /> : <Menu />}
-      </button>
+      {/* Mobile Menu */}
+      <div className="flex md:hidden justify-end  items-center gap-4 px-4">
+        <button
+          className="md:hidden cursor-pointer bg-red-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded-md"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {isOpen ? (
+            <X className="text-slate-800 dark:text-slate-200" />
+          ) : (
+            <Menu className="text-slate-800 dark:text-slate-200" />
+          )}
+        </button>
+        {isOpen && (
+          <div className=" flex self-end  md:hidden flex-col justify-center items-center fixed z-100 max-w-[70%] align-self-left top-16 left-0 right-0 gap-4 px-4 bg-white dark:bg-slate-800 shadow-lg rounded-b-lg transition-transform duration-300 ease-in-out z-50">
+            <button
+              className={`cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl ${
+                location.pathname === "/"
+                  ? "font-bold text-lg text-indigo-400"
+                  : ""
+              }`}
+              onClick={() => navigate("/")}
+            >
+              Home
+            </button>
+            <button
+              className={`cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl ${
+                location.pathname === "/products"
+                  ? "font-bold text-lg text-indigo-400"
+                  : ""
+              }`}
+              onClick={() => navigate("/products")}
+            >
+              Products
+            </button>
+            <button
+              className={`cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl ${
+                location.pathname === "/reports"
+                  ? "font-bold text-lg text-indigo-400"
+                  : ""
+              }`}
+              onClick={() => navigate("/reports")}
+            >
+              Dashboard and report
+            </button>
+            <button
+              className={`cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl ${
+                location.pathname === "/media"
+                  ? "font-bold text-lg text-indigo-400"
+                  : ""
+              }`}
+              onClick={() => navigate("/media")}
+            >
+              Media
+            </button>
+            <button
+              className={`cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl ${
+                location.pathname === "/cja"
+                  ? "font-bold text-lg text-indigo-400"
+                  : ""
+              }`}
+              onClick={() => navigate("/cja")}
+            >
+              CJA
+            </button>
+            <button
+              className={`cursor-pointer hover:font-semibold hover:text-lg duration-200 ease-in-out px-2  rounded-4xl ${
+                location.pathname === "/sst"
+                  ? "font-bold text-lg text-indigo-400"
+                  : ""
+              }`}
+              onClick={() => navigate("/sst")}
+            >
+              SST
+            </button>
+
+            <button
+              onClick={toggleTheme}
+              className={`cursor-pointer relative min-w-14 h-7 rounded-full transition-colors duration-300 ${
+                theme === "dark" ? "bg-slate-700" : "bg-gray-300"
+              }`}
+              aria-label="Toggle dark mode"
+            >
+              <span className="absolute top-[6px] left-2 transition-transform duration-300">
+                {theme === "dark" ? <MdSunny /> : ""}
+              </span>
+              <div
+                className={`absolute top-1 w-5 h-5 bg-white rounded-full shadow-md pt-[2px] pl-[1px] transition-transform duration-300 ${
+                  theme === "dark" ? "translate-x-8" : "translate-x-1"
+                }`}
+              >
+                <span className="flex justify-center items-center">
+                  {theme === "dark" ? <FaMoon color="black" /> : <MdSunny />}
+                </span>
+              </div>
+
+              <span className="absolute top-[6px] right-2 transition-transform duration-300">
+                {theme !== "dark" ? <FaMoon color="black" /> : ""}
+              </span>
+            </button>
+          </div>
+        )}
+      </div>
     </nav>
   );
 };
