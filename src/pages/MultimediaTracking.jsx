@@ -1,5 +1,6 @@
 import React from "react";
 import VideoPlayer from "../components/VideoPlayer";
+// import video from "../assets/exp.mp4";
 
 const MultimediaTracking = () => {
   return (
@@ -20,6 +21,7 @@ const MultimediaTracking = () => {
         <h2 className="py-4 text-xl font-semibold">Custom Video tracking</h2>
         <div className="w-[90%] md:w-[60%] aspect-video">
           <VideoPlayer
+            // src={video}
             src={"https://www.w3schools.com/html/mov_bbb.mp4"}
           ></VideoPlayer>
         </div>

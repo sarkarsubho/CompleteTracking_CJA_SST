@@ -19,6 +19,7 @@ const Navbar = () => {
   });
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
 
   const handleLogout = () => {
     // Clear user session or token from localStorage
@@ -125,7 +126,7 @@ const Navbar = () => {
         </button>
       </div>
 
-      <div className="flex justify-center items-center gap-2">
+      <div className="hidden md:flex justify-center items-center gap-2">
         <button
           onClick={toggleTheme}
           className={`cursor-pointer relative min-w-14 h-7 rounded-full transition-colors duration-300 ${
@@ -151,9 +152,36 @@ const Navbar = () => {
           </span>
         </button>
         <div className="flex items-center justify-center space-x-3">
-          <div className="w-8 h-8 rounded-full bg-cyan-500/20 border border-slate-700 dark:border-cyan-500/40 flex items-center justify-center text-slate-700 dark:text-cyan-300 font-medium text-sm cursor-pointer">
+          <div
+            className="w-8 h-8 rounded-full bg-cyan-500/20 border border-slate-700 dark:border-cyan-500/40 flex items-center justify-center text-slate-700 dark:text-cyan-300 font-medium text-sm cursor-pointer"
+            onClick={() => setShowProfile(!showProfile)}
+          >
             {/* {userName.charAt(0)} */}
             SS
+          </div>
+          <div
+            className={`fixed top-11 right-3 flex flex-col transition-transform duration-500 ease-in-out ${
+              showProfile
+                ? "-translate-y-15 translate-x-15 scale-0"
+                : "translate-y-2 translate-x-1 scale-100"
+            }`}
+          >
+            <div className="bg-slate-300 p-2 w-2 rotate-45 self-end mr-7 -mb-3"></div>
+            <div className="flex flex-col justify-between items-center space-x-2 gap-4 bg-slate-300 p-2 rounded">
+              <div className="flex gap-2 justify-between items-center">
+                <User className="border  w-6 h-6 rounded-full" />
+                <div>
+                  <p className="text-sm font-semibold">John Doe</p>
+                  <p className="text-xs text-gray-500">john.doe@example.com</p>
+                </div>
+              </div>
+              <button
+                onClick={handleLogout}
+                className="bg-red-500 hover:bg-red-600 cursor-pointer text-white p-1 w-full px-4 rounded-md transition-colors duration-200"
+              >
+                <LogOut className="inline-block " /> Logout
+              </button>
+            </div>
           </div>
           {/* <button
             onClick={handleLogout}
@@ -163,6 +191,7 @@ const Navbar = () => {
           </button> */}
         </div>
       </div>
+
       {/* Mobile Menu */}
       <div className="flex md:hidden justify-end  items-center gap-4 ">
         <button
@@ -204,7 +233,7 @@ const Navbar = () => {
 
       {/* mobile menu option */}
       <div
-        className={`fixed flex md:hidden flex-col gap-5 text-lg pr-8 pt-4 items-end z-100 right-0 top-18 z-50 bg-white dark:bg-slate-800 h-[calc(100vh-4.5rem)] w-72  shadow-xl transition-transform duration-300 ease-in-out  ${
+        className={`fixed flex md:hidden flex-col gap-5 text-lg pr-8 pt-4 items-end z-100 right-0 top-16 z-50 bg-white dark:bg-slate-800 h-[calc(100vh-4.5rem)] w-72  shadow-xl transition-transform duration-300 ease-in-out  ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
