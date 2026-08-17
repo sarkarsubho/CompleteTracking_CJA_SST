@@ -169,9 +169,11 @@ const Navbar = () => {
             <div className="bg-slate-300 p-2 w-2 rotate-45 self-end mr-7 -mb-3"></div>
             <div className="flex flex-col justify-between items-center space-x-2 gap-4 bg-slate-300 p-2 rounded">
               <div className="flex gap-2 justify-between items-center">
-                <User className="border  w-6 h-6 rounded-full" />
+                <User className="border  w-6 h-6 rounded-full dark:text-slate-600" />
                 <div>
-                  <p className="text-sm font-semibold">John Doe</p>
+                  <p className="text-sm font-semibold dark:text-slate-600 ">
+                    John Doe
+                  </p>
                   <p className="text-xs text-gray-500">john.doe@example.com</p>
                 </div>
               </div>
