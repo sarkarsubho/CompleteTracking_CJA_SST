@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FaCartPlus } from "react-icons/fa6";
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 const ProductsDetails = () => {
   const { id } = useParams();
@@ -43,6 +44,14 @@ const ProductsDetails = () => {
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
+    //the datalayer should only pushed once, when user starts filling the form.
+
+    window.dataLayer.push({
+      event: "product_buynow_form_started",
+      product_name: defaultProduct.name,
+      product_price: defaultProduct.price,
+      product_id: defaultProduct.id,
+    });
     setFormData((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
@@ -114,15 +123,37 @@ const ProductsDetails = () => {
           agreeTerms: false,
         });
         setSubmitSuccess(false);
+        window.dataLayer.push({
+          event: "product_buynow_form_submitted",
+          product_name: defaultProduct.name,
+          product_price: defaultProduct.price,
+          product_id: defaultProduct.id,
+        });
       }, 3000);
     } catch (error) {
       console.error("Error submitting form:", error);
+      window.dataLayer.push({
+        event: "product_buynow_form_submission_failed",
+        product_name: defaultProduct.name,
+        product_price: defaultProduct.price,
+        product_id: defaultProduct.id,
+        error_message: error.message,
+      });
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const totalPrice = (defaultProduct.price * formData.quantity).toFixed(2);
+
+  useEffect(() => {
+    window.dataLayer.push({
+      event: "product_buynow_form_opened",
+      product_name: defaultProduct.name,
+      product_price: defaultProduct.price,
+      product_id: defaultProduct.id,
+    });
+  }, []);
 
   return (
     <div>
@@ -231,7 +262,9 @@ const ProductsDetails = () => {
             //   showForm ? "translate-y-0" : "translate-y-full"
             // }`}
           >
-            <h2 className="text-center text-3xl pt-2 underline">Enter Details to Continue.</h2>
+            <h2 className="text-center text-3xl pt-2 underline">
+              Enter Details to Continue.
+            </h2>
             {/* Success Message */}
             {submitSuccess && (
               <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6 flex items-center gap-3">
@@ -243,10 +276,7 @@ const ProductsDetails = () => {
             )}
 
             {/* Form */}
-            <form
-              onSubmit={handleSubmit}
-              className="shadow-lg overflow-hidden"
-            >
+            <form onSubmit={handleSubmit} className="shadow-lg overflow-hidden">
               {/* Product Options Section */}
               <div className="border-b border-gray-200 p-6">
                 <h3 className="text-lg font-semibold element-900 mb-6">

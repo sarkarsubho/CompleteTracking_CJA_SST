@@ -23,6 +23,7 @@ const MultimediaTracking = () => {
           <VideoPlayer
             // src={video}
             src={"https://www.w3schools.com/html/mov_bbb.mp4"}
+            name="Big Buck Bunny"
           ></VideoPlayer>
         </div>
       </div>

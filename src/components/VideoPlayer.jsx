@@ -8,7 +8,7 @@ import {
   Download,
 } from "lucide-react";
 
-const VideoPlayer = ({ src }) => {
+const VideoPlayer = ({ src, name }) => {
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -22,8 +22,18 @@ const VideoPlayer = ({ src }) => {
     if (videoRef.current) {
       if (isPlaying) {
         videoRef.current.pause();
+        window.dataLayer.push({
+          event: "video_pause",
+          video_name: name,
+          video_url: videoRef.current.src,
+        });
       } else {
         videoRef.current.play();
+        window.dataLayer.push({
+          event: "video_play",
+          video_name: name,
+          video_url: videoRef.current.src,
+        });
       }
       setIsPlaying(!isPlaying);
     }
@@ -50,6 +60,15 @@ const VideoPlayer = ({ src }) => {
   const handleTimeUpdate = () => {
     if (videoRef.current) {
       setCurrentTime(videoRef.current.currentTime);
+      // if video is watched completely or 90% of it is watched, trigger an event and marked as watched
+      if (videoRef.current.currentTime === videoRef.current.duration || videoRef.current.currentTime / videoRef.current.duration >= 0.9) {
+        setIsPlaying(false);
+        window.dataLayer.push({
+          event: "video_watched",
+          video_name: name,
+          video_url: videoRef.current.src,
+        });
+      }
     }
   };
 
@@ -99,6 +118,11 @@ const VideoPlayer = ({ src }) => {
     link.href = videoRef.current.src;
     link.download = "video.mp4";
     link.click();
+    window.dataLayer.push({
+      event: "video_download",
+      video_name: name,
+      video_url: videoRef.current.src,
+    });
   };
 
   return (
