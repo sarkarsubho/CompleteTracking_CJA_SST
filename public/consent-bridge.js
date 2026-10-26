@@ -18,6 +18,9 @@
   };
 
   window.setSiteConsent = function (choice) {
+    var previousConsent = readSaved();
+    var previousPath = localStorage.getItem("currentPage") || null;
+
     var consent = {
       analytics_storage:
         choice.analytics_storage === "granted" ? "granted" : "denied",
@@ -44,16 +47,25 @@
       }),
     );
 
-    window.dataLayer = window.dataLayer || [];
+    // Fire only when analytics changes from not granted to granted.
+    var analyticsJustGranted =
+      consent.analytics_storage === "granted" &&
+      (!previousConsent || previousConsent.analytics_storage !== "granted");
 
-    window.dataLayer.push({
-      event: "site-consent-changed",
-      analytics_storage: consent.analytics_storage,
-      ad_storage: consent.ad_storage,
-      ad_user_data: consent.ad_user_data,
-      ad_personalization: consent.ad_personalization,
-    });
+    if (analyticsJustGranted || previousPath !== window.location.pathname) {
+      window.dataLayer = window.dataLayer || [];
+      localStorage.setItem("currentPage", window.location.pathname);
+
+      window.dataLayer.push({
+        event: "site-consent-changed",
+        analytics_storage: consent.analytics_storage,
+        ad_storage: consent.ad_storage,
+        ad_user_data: consent.ad_user_data,
+        ad_personalization: consent.ad_personalization,
+      });
+    }
   };
+  s;
 
   window.getSavedSiteConsent = readSaved;
 })();
