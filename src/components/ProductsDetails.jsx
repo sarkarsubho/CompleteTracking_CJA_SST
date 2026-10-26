@@ -30,6 +30,7 @@ const ProductsDetails = () => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [formStarted, setFormStarted] = useState(false); // New state to track if the form has been started
 
   // Default product data
   const defaultProduct = {
@@ -46,12 +47,15 @@ const ProductsDetails = () => {
     const { name, value, type, checked } = e.target;
     //the datalayer should only pushed once, when user starts filling the form.
 
-    window.dataLayer.push({
-      event: "product_buynow_form_started",
-      product_name: defaultProduct.name,
-      product_price: defaultProduct.price,
-      product_id: defaultProduct.id,
-    });
+    if (!formStarted) {
+      setFormStarted(true);
+      window.dataLayer.push({
+        event: "product_buynow_form_started",
+        product_name: defaultProduct.name,
+        product_price: defaultProduct.price,
+        product_id: defaultProduct.id,
+      });
+    }
     setFormData((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
@@ -153,6 +157,10 @@ const ProductsDetails = () => {
       product_price: defaultProduct.price,
       product_id: defaultProduct.id,
     });
+
+    return () => {
+      setFormStarted(false); // Reset formStarted state when component unmounts
+    };
   }, []);
 
   return (

@@ -6,6 +6,7 @@ import Allroutes from "./routes/Allroutes";
 import { useEffect, useState } from "react";
 import GPTButton from "./components/GPTButton";
 import { BrowserRouter, useNavigate } from "react-router-dom";
+import CookieBanner from "./components/cookieBanner/CookieBanner";
 
 function App() {
   useEffect(() => {
@@ -57,6 +58,7 @@ function App() {
       <Navbar />
       <Allroutes />
       <GPTButton />
+      <CookieBanner />
     </BrowserRouter>
   );
 }
