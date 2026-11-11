@@ -1,4 +1,27 @@
-# React + Vite
+# Project Features
+
+### **Analytics**
+ - google analytics.
+ - piano analytics.
+
+ ### **CMS**
+ - Custom banner for GCS.
+ - Onetrust CMS.
+    - cross domain cross device consent
+    - domain to sub-domain consent setup
+ - Trust commander.
+    - domain to sub-domain consent setup
+
+ ### **TMS**
+ - GTM
+ - Tag commander (commanders act)
+
+ ### **Featuures**
+ - Customer Journey analytics.
+ - Server Side Tagging.
+  
+
+# React + Vite Setup
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 

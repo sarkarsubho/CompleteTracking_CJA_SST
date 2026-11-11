@@ -1,14 +1,27 @@
-import heroImg from "./assets/hero.png";
-import viteLogo from "./assets/vite.svg";
 import Navbar from "./components/Navbar";
-import reactLogo from "./assets/react.svg";
 import Allroutes from "./routes/Allroutes";
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import GPTButton from "./components/GPTButton";
 import { BrowserRouter, useNavigate } from "react-router-dom";
 import CookieBanner from "./components/cookieBanner/CookieBanner";
 
+export const GlobalContext = createContext();
+
 function App() {
+  const gaCookie = document.cookie
+    .split("; ")
+    .find((cookie) => cookie.startsWith("_ga="));
+
+  const clientId = gaCookie
+    ?.split("=")
+    .slice(1)
+    .join("=")
+    .replace(/^GA\d+\.\d+\./, "");
+
+  localStorage.setItem("gaClientId", clientId || "");
+
+  const [gaClientId, setGaClientId] = useState(clientId || "demo-client-id");
+
   useEffect(() => {
     localStorage.setItem(
       "products",
@@ -55,10 +68,12 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Navbar />
-      <Allroutes />
-      <GPTButton />
-      <CookieBanner />
+      <GlobalContext.Provider value={{ gaClientId, setGaClientId }}>
+        <Navbar />
+        <Allroutes />
+        <GPTButton />
+        <CookieBanner />
+      </GlobalContext.Provider>
     </BrowserRouter>
   );
 }

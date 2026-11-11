@@ -65,7 +65,6 @@
       });
     }
   };
-  s;
 
   window.getSavedSiteConsent = readSaved;
 })();

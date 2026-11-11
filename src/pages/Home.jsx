@@ -14,9 +14,13 @@ import {
   Compass,
   Sliders,
 } from "lucide-react";
+import { GlobalContext } from "../App";
 
 const Home = () => {
   const userName = localStorage.getItem("userName") || "User";
+  const { gaClientId } = React.useContext(GlobalContext);
+
+  console.log("GA4 Client ID from Home.jsx:", gaClientId);
 
   return (
     <div
