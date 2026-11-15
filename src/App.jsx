@@ -4,10 +4,13 @@ import { createContext, useEffect, useState } from "react";
 import GPTButton from "./components/GPTButton";
 import { BrowserRouter, useNavigate } from "react-router-dom";
 import CookieBanner from "./components/cookieBanner/CookieBanner";
+import Snowfall from "react-snowfall";
+import DialogBox from "./components/DialogBox";
 
 export const GlobalContext = createContext();
 
 function App() {
+  const [startWinter, setStartWinter] = useState(false);
   const gaCookie = document.cookie
     .split("; ")
     .find((cookie) => cookie.startsWith("_ga="));
@@ -69,6 +72,28 @@ function App() {
   return (
     <BrowserRouter>
       <GlobalContext.Provider value={{ gaClientId, setGaClientId }}>
+       {!startWinter && (
+          <DialogBox
+            heading="Winter Is Coming...?"
+            content="When the snows fall, the white winds blow,the lone wolfdies but the pack servives..." // make a great coat on game of thorens
+            actionTrue={() => setStartWinter(true)}
+            actionFalse={() => setStartWinter(false)}
+            actionTrueText="Ready"
+            actionFalseText="Back off"
+          />
+        )}
+        {startWinter && (
+          <Snowfall
+            color="lightgray"
+            snowflakeCount={1000}
+            //  images={images}
+            style={{
+              position: "fixed",
+              width: "100vw",
+              height: "100vh",
+            }}
+          />
+        )}
         <Navbar />
         <Allroutes />
         <GPTButton />
