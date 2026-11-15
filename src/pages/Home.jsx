@@ -15,6 +15,7 @@ import {
   Sliders,
 } from "lucide-react";
 import { GlobalContext } from "../App";
+import ErrorComponent from "../components/ErrorComponent";
 
 const Home = () => {
   const userName = localStorage.getItem("userName") || "User";
@@ -27,6 +28,7 @@ const Home = () => {
       className="min-h-screen dark:bg-slate-950 dark:text-slate-100 font-sans selection:bg-indigo-500 selection:text-white"
       // className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-indigo-500 selection:text-white"
     >
+      <ErrorComponent />
       {/* Navigation Bar */}
       {/* <header className="border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
